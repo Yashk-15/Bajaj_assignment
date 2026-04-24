@@ -219,9 +219,18 @@ function buildTree(node, parentToChildren) {
     const children = parentToChildren[node] || [];
     const subtree = {};
     for (let child of children) {
-        subtree[child] = buildTree(child, parentToChildren);
+        subtree[child] = buildTreeChildren(child, parentToChildren);
     }
     return { [node]: subtree };
+}
+
+function buildTreeChildren(node, parentToChildren) {
+    const children = parentToChildren[node] || [];
+    const subtree = {};
+    for (let child of children) {
+        subtree[child] = buildTreeChildren(child, parentToChildren);
+    }
+    return subtree;
 }
 
 function calcDepth(node, parentToChildren) {
